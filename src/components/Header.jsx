@@ -67,7 +67,7 @@ export default function ButtonAppBar() {
           </Typography>
           
             <Button color="inherit" component={ Link } to="/products"> Products </Button>
-            <Button color="inherit"> My Profile </Button>
+            <Button color="inherit" component={ Link } to="/myprofile" > My Profile </Button>
           
           <LoginCheck />
 

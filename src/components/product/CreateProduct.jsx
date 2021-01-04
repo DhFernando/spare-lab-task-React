@@ -41,9 +41,7 @@ const CreateProduct = () => {
 
     const create = async () => {
 
-        if( ( newProductDetails.name != null && newProductDetails.description != null && newProductDetails.quantity != null ) 
-                == ( newProductDetails.name.length > 0 && newProductDetails.description.length > 0 && newProductDetails.quantity.length > 0 ) 
-        ){
+        if(  newProductDetails.name.length > 0 && newProductDetails.description.length > 0 && newProductDetails.quantity.length > 0 ){
             let res = await axios.post("http://localhost:2000/product" , newProductDetails ,{
                 headers: { 'Authorization': `Basic ${ localStorage.getItem("Token") }`  }
             })
@@ -58,9 +56,9 @@ const CreateProduct = () => {
     }
 
     const intNewProduct = {
-        name:null,
-        description:null,
-        quantity:null
+        name:"",
+        description:"",
+        quantity:""
     }
     const [newProductDetails , setNewProductDetails] = useState(intNewProduct);
 

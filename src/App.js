@@ -3,6 +3,7 @@ import Home from './components/Home'
 import Header from './components/Header'
 import Product from './components/product/ProductList.jsx'
 import CreateProduct from './components/product/CreateProduct'
+import MyProfile from './components/user/MyProfile'
 
 import Login from './components/user/Login'
 
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/products" component={ () => isLogin() ? <Product /> :<Login /> } />
                 <Route path="/login" component={ () => isLogin() ? <Home /> :<Login /> } />
                 <Route path="/createproduct" component={ () => isLogin() ? <CreateProduct /> :<Login /> } />
+                <Route path="/myprofile" component={ () => isLogin() ? <MyProfile /> :<Login /> } />
               
               </Switch>
             </Container>
