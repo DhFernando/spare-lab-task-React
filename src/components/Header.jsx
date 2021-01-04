@@ -33,21 +33,21 @@ export default function ButtonAppBar() {
   const classes = useStyles();
   const history = useHistory();
 
-  useEffect(() => {
-    if(localStorage.getItem('Token') != null){
-    //   if(JSON.parse(atob(localStorage.getItem("Token").split('.')[1])).exp < new Date().getTime()/1000){
+//   useEffect(() => {
+//     if(localStorage.getItem('Token') != null){
+//     //   if(JSON.parse(atob(localStorage.getItem("Token").split('.')[1])).exp < new Date().getTime()/1000){
         
-    //   }
-    }
-  }, [ ]);
+//     //   }
+//     }
+//   }, [ ]);
 
   function LoginCheck () {
      
     if (localStorage.getItem('Token') == null) {
-      return (<Button color="inherit" onClick={ ()=>{localStorage.setItem('Token', "action.payload")} }>Login</Button>)
+      return (<Button color="inherit" component={ Link } to="/login" >Login</Button>)
     } else {
       return (<Button color="inherit" onClick={ () => {
-        // history.push({ pathname: "/UserLogin" })
+        history.push({ pathname: "/login" })
         localStorage.removeItem('Token')
       } } >   Log Out <Box ml={2} mt={1}><ExitToApp /></Box></Button>)
     }
@@ -62,8 +62,12 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Spare Labs
+            < Button color="inherit" component={ Link } to="/" ><h2>Spare Labs</h2></Button>
+                
           </Typography>
+          
+            <Button color="inherit" component={ Link } to="/products"> Products </Button>
+            <Button color="inherit"> My Profile </Button>
           
           <LoginCheck />
 

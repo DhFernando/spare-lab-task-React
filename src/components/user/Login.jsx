@@ -1,4 +1,5 @@
 import React , {useState , useEffect }from 'react'
+import { useHistory } from "react-router";
 import axios from 'axios'
 
 import Avatar from '@material-ui/core/Avatar';
@@ -54,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
 
     const classes = useStyles();
+    const history = useHistory();
 
     const intLoginDetails = {
         username:null,
@@ -66,7 +68,8 @@ const Login = () => {
             if(LoginDetails.username.length > 0 &&  LoginDetails.password.length > 0){
                 axios.post("http://localhost:2000/user/authentication" , LoginDetails )
                 .then( res => {
-                    localStorage.setItem('Token', res.data)
+                    localStorage.setItem('Token', res.data.token)
+                    history.push({ pathname: "/" })
                 } ).catch(e => {
                     alert("username or password incorrect")
                 })
