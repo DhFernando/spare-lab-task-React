@@ -47,9 +47,13 @@ const ProductList = () => {
     const classes = useStyles();
 
     const [ products ,  setProducts ] = useState([])
+    const [ userId , setUserId] = useState( null )
 
     useEffect(async() =>{
         if( localStorage.getItem("Token") != null ){
+
+            setUserId(JSON.parse(atob(localStorage.getItem("Token").split('.')[1]))._id)
+
             let Products = await axios.get("http://localhost:2000/product" , {
                  headers: { 'Authorization': `Basic ${ localStorage.getItem("Token") }`  }
             })
@@ -91,12 +95,18 @@ const ProductList = () => {
                         <StyledTableCell align="right"> {row.name} </StyledTableCell>
                         <StyledTableCell align="right">{row.description}</StyledTableCell>
                         <StyledTableCell align="right">{row.quantity}</StyledTableCell>
-                        <StyledTableCell align="right"> {row.userId}</StyledTableCell>
                         <StyledTableCell align="right">
-                             <Button variant="contained" color="secondary"
+                            <Button variant="contained" color="inherit" component={ Link } to= {`/product/user/${row.userId}`} >
+                                 {row.userId}
+                            </Button>
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                            
+                             {(userId == row.userId) && <Button variant="contained" color="secondary"
                                 onClick={ () => {  deleteProduct(row._id) } }
-                             >Delete</Button> 
-                             <Button variant="contained" color="primary">Update</Button> 
+                             >Delete</Button>} 
+                             {userId == row.userId && <Button variant="contained" color="primary">Update</Button>}
+                             { userId != row.userId && <> No permission for make action </> } 
                         </StyledTableCell> 
                     </StyledTableRow>
                 ))}

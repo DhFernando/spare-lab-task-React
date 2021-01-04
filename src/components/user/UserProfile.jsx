@@ -1,7 +1,7 @@
 import React , {useEffect , useState} from 'react'
 import axios from 'axios'
 import { useHistory } from "react-router";
-
+import { useParams } from 'react-router-dom';
 
 
 import Avatar from '@material-ui/core/Avatar';
@@ -51,6 +51,7 @@ function MyProfile() {
 
     const history = useHistory();
     const classes = useStyles();
+    const { _id } = useParams();
      
     useEffect(()=>{
 
@@ -81,8 +82,13 @@ function MyProfile() {
     // component 
     function ProfileDataComponent (){
         if(user == null && localStorage.getItem("Token") != null){
-                let userId = JSON.parse(atob(localStorage.getItem("Token").split('.')[1]))._id
-            
+                let userId ;
+                if(_id === undefined){
+                  userId = JSON.parse(atob(localStorage.getItem("Token").split('.')[1]))._id
+                }else{
+                  userId = _id
+                }
+                
                 axios.get(`http://localhost:2000/user/${userId}` ,{
                   headers: { 'Authorization': `Basic ${localStorage.getItem("Token")}` }
                 }).then((res) =>{ 

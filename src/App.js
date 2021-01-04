@@ -3,7 +3,8 @@ import Home from './components/Home'
 import Header from './components/Header'
 import Product from './components/product/ProductList.jsx'
 import CreateProduct from './components/product/CreateProduct'
-import MyProfile from './components/user/MyProfile'
+import UserProfile from './components/user/UserProfile'
+import Register from './components/user/register'
 
 import Login from './components/user/Login'
 
@@ -30,13 +31,13 @@ function App() {
             <Container maxWidth={ "xl" }>
               <Switch>
                 <Route exact path="/" component={ Home } />
-             
-                {/* <Route path="/article/:articleId"  component={   Article   } /> */}
-
+          
                 <Route path="/products" component={ () => isLogin() ? <Product /> :<Login /> } />
                 <Route path="/login" component={ () => isLogin() ? <Home /> :<Login /> } />
                 <Route path="/createproduct" component={ () => isLogin() ? <CreateProduct /> :<Login /> } />
-                <Route path="/myprofile" component={ () => isLogin() ? <MyProfile /> :<Login /> } />
+                <Route path="/register" component={ () => isLogin() ? <Home /> :<Register /> } />
+                <Route path="/userprofile" component={ () => isLogin() ? <UserProfile /> :<Login /> } />
+                <Route path="/product/user/:_id" component={ () => isLogin() ? <UserProfile /> :<Login /> } />
               
               </Switch>
             </Container>

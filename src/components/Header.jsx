@@ -1,4 +1,4 @@
-import React , { useEffect } from 'react';
+import React , { useEffect , useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router";
 import { Link } from 'react-router-dom'
@@ -33,25 +33,15 @@ export default function ButtonAppBar() {
   const classes = useStyles();
   const history = useHistory();
 
-//   useEffect(() => {
-//     if(localStorage.getItem('Token') != null){
-//     //   if(JSON.parse(atob(localStorage.getItem("Token").split('.')[1])).exp < new Date().getTime()/1000){
-        
-//     //   }
-//     }
-//   }, [ ]);
+  const [ isLogin , setIsLogin ] = useState(false)
 
-  function LoginCheck () {
-     
-    if (localStorage.getItem('Token') == null) {
-      return (<Button color="inherit" component={ Link } to="/login" >Login</Button>)
-    } else {
-      return (<Button color="inherit" onClick={ () => {
-        history.push({ pathname: "/login" })
-        localStorage.removeItem('Token')
-      } } >   Log Out <Box ml={2} mt={1}><ExitToApp /></Box></Button>)
+  useEffect(() => {
+    if(localStorage.getItem('Token') != null){
+        setIsLogin(true)
     }
-  }
+  }, [ ]);
+
+ 
 
 
   return (
@@ -67,9 +57,17 @@ export default function ButtonAppBar() {
           </Typography>
           
             <Button color="inherit" component={ Link } to="/products"> Products </Button>
-            <Button color="inherit" component={ Link } to="/myprofile" > My Profile </Button>
-          
-          <LoginCheck />
+            <Button color="inherit" component={ Link } to="/userprofile" > My Profile </Button>
+      
+        { (isLogin == false)&& <Button color="inherit" component={ Link } to="/register" >Register</Button>}
+          { (isLogin == false)&& <Button color="inherit" component={ Link } to="/login" >Login</Button>}
+
+          { (isLogin == true)&& <Button color="inherit" onClick={ () => {
+                    setIsLogin(false)
+                    history.push({ pathname: "/login" })
+                    localStorage.removeItem('Token')
+                } } >   Log Out <Box ml={2} mt={1}><ExitToApp /></Box></Button>
+            }
 
         </Toolbar>
       </AppBar>
