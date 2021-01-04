@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
      
   }));
 
-function MyProfile() {
+function UserProfile() {
 
     const history = useHistory();
     const classes = useStyles();
@@ -88,7 +88,7 @@ function MyProfile() {
                 }else{
                   userId = _id
                 }
-                
+
                 axios.get(`http://localhost:2000/user/${userId}` ,{
                   headers: { 'Authorization': `Basic ${localStorage.getItem("Token")}` }
                 }).then((res) =>{ 
@@ -109,15 +109,15 @@ function MyProfile() {
                         <form className={classes.form} noValidate>
                         <Grid container spacing={2}>
                             <Grid item xs={12} >
-                                Full name : { user.username}
+                                Full name : { user.firstname} {user.lastname }
                             </Grid>
                         
                             <Grid item xs={12} sm={6}>
-                                User Type : {user.username }
+                                First Name : {user.firstname }
                             </Grid>
                            
                             <Grid  item xs={12} sm={6}>
-                                User Role : {user.username }
+                                Last Name : {user.lastname }
                             </Grid>
                             <Grid item xs={12} sm={6}> 
                                     User Name : { user.username }
@@ -125,12 +125,17 @@ function MyProfile() {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                
-                                    Phone : { user.username }
+                                    Phone : { user.phone }
                               
                             </Grid>
                             <Grid item xs={12} >
                                 
-                                    EMail : { user.username }
+                                    EMail : { user.email }
+                                
+                            </Grid>
+                            <Grid item xs={12} sm={6} >
+                                
+                                    Adress : { user.adress }
                                 
                             </Grid>
                             <Grid item xs={12}>
@@ -154,4 +159,4 @@ function MyProfile() {
     )
 }
 
-export default MyProfile
+export default UserProfile
